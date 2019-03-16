@@ -42,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      to Swifify, which will generate the code and save it in Keychain for persistency
      */
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        print(url)
         spotifyManager.saveToken(from: url)
         return true
     }

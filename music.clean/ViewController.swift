@@ -10,11 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var authorizeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-
+    // Authourize user's Spotify account
+    @IBAction func clickAuthorize(_ sender: Any) {
+        spotifyManager.authorize()
+    }
 }
 

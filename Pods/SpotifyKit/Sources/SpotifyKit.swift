@@ -107,10 +107,12 @@ fileprivate enum SpotifyQuery: String, URLConvertible {
  // TODO: test this more
  */
 fileprivate enum SpotifyScope: String {
-    case readPrivate   = "user-read-private"
-    case readEmail     = "user-read-email"
-    case libraryModify = "user-library-modify"
-    case libraryRead   = "user-library-read"
+    case readPrivate    = "user-read-private"
+    case readEmail      = "user-read-email"
+    case libraryModify  = "user-library-modify"
+    case libraryRead    = "user-library-read"
+    case playlistRead   = "playlist-read-private"
+    case playlistModify = "playlist-modify-private"
     
     /**
      Creates a string to pass as parameter value
