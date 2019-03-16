@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66DD033EB0D2F0CEF0332B22 /* Pods_music_clean.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AE1683D7B71A6143A98CA9 /* Pods_music_clean.framework */; };
 		6AA59703223CBB330011DFB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59702223CBB330011DFB8 /* AppDelegate.swift */; };
 		6AA59705223CBB330011DFB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59704223CBB330011DFB8 /* ViewController.swift */; };
 		6AA59708223CBB330011DFB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AA59706223CBB330011DFB8 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09AE1683D7B71A6143A98CA9 /* Pods_music_clean.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_music_clean.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA596FF223CBB330011DFB8 /* music.clean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = music.clean.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA59702223CBB330011DFB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AA59704223CBB330011DFB8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +24,8 @@
 		6AA59709223CBB370011DFB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AA5970C223CBB370011DFB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AA5970E223CBB370011DFB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		800ADE85DE0E17CFB89DD06C /* Pods-music.clean.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-music.clean.release.xcconfig"; path = "Pods/Target Support Files/Pods-music.clean/Pods-music.clean.release.xcconfig"; sourceTree = "<group>"; };
+		A0C0A36928549777A03ABC4F /* Pods-music.clean.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-music.clean.debug.xcconfig"; path = "Pods/Target Support Files/Pods-music.clean/Pods-music.clean.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66DD033EB0D2F0CEF0332B22 /* Pods_music_clean.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				6AA59701223CBB330011DFB8 /* music.clean */,
 				6AA59700223CBB330011DFB8 /* Products */,
+				BEE346873B948AB2454826B1 /* Pods */,
+				FCDEE579AE1575B940354D16 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = music.clean;
 			sourceTree = "<group>";
 		};
+		BEE346873B948AB2454826B1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A0C0A36928549777A03ABC4F /* Pods-music.clean.debug.xcconfig */,
+				800ADE85DE0E17CFB89DD06C /* Pods-music.clean.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FCDEE579AE1575B940354D16 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				09AE1683D7B71A6143A98CA9 /* Pods_music_clean.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AA59711223CBB370011DFB8 /* Build configuration list for PBXNativeTarget "music.clean" */;
 			buildPhases = (
+				713CFAC44AE6596F3F720B1E /* [CP] Check Pods Manifest.lock */,
 				6AA596FB223CBB330011DFB8 /* Sources */,
 				6AA596FC223CBB330011DFB8 /* Frameworks */,
 				6AA596FD223CBB330011DFB8 /* Resources */,
+				CA5159396828EEF877CBF453 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +155,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		713CFAC44AE6596F3F720B1E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-music.clean-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA5159396828EEF877CBF453 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-music.clean/Pods-music.clean-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SpotifyKit/SpotifyKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SpotifyKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-music.clean/Pods-music.clean-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6AA596FB223CBB330011DFB8 /* Sources */ = {
@@ -280,6 +353,7 @@
 		};
 		6AA59712223CBB370011DFB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0C0A36928549777A03ABC4F /* Pods-music.clean.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +372,7 @@
 		};
 		6AA59713223CBB370011DFB8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 800ADE85DE0E17CFB89DD06C /* Pods-music.clean.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
