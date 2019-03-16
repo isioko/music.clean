@@ -13,6 +13,7 @@
 		6AA59708223CBB330011DFB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AA59706223CBB330011DFB8 /* Main.storyboard */; };
 		6AA5970A223CBB370011DFB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AA59709223CBB370011DFB8 /* Assets.xcassets */; };
 		6AA5970D223CBB370011DFB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AA5970B223CBB370011DFB8 /* LaunchScreen.storyboard */; };
+		6AA59715223CC4F70011DFB8 /* SpotifyAppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59714223CC4F70011DFB8 /* SpotifyAppInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6AA59709223CBB370011DFB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AA5970C223CBB370011DFB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AA5970E223CBB370011DFB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6AA59714223CC4F70011DFB8 /* SpotifyAppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAppInfo.swift; sourceTree = "<group>"; };
 		800ADE85DE0E17CFB89DD06C /* Pods-music.clean.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-music.clean.release.xcconfig"; path = "Pods/Target Support Files/Pods-music.clean/Pods-music.clean.release.xcconfig"; sourceTree = "<group>"; };
 		A0C0A36928549777A03ABC4F /* Pods-music.clean.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-music.clean.debug.xcconfig"; path = "Pods/Target Support Files/Pods-music.clean/Pods-music.clean.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 				6AA59709223CBB370011DFB8 /* Assets.xcassets */,
 				6AA5970B223CBB370011DFB8 /* LaunchScreen.storyboard */,
 				6AA5970E223CBB370011DFB8 /* Info.plist */,
+				6AA59714223CC4F70011DFB8 /* SpotifyAppInfo.swift */,
 			);
 			path = music.clean;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			files = (
 				6AA59705223CBB330011DFB8 /* ViewController.swift in Sources */,
 				6AA59703223CBB330011DFB8 /* AppDelegate.swift in Sources */,
+				6AA59715223CC4F70011DFB8 /* SpotifyAppInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
