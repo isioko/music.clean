@@ -9,18 +9,22 @@
 import Foundation
 import UIKit
 
-class PlaylistsViewContoller: UIViewController /*, UICollectionViewDataSource*/ {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        <#code#>
-//    }
+class PlaylistsViewContoller: UIViewController, UICollectionViewDataSource {
     
     var playlistNames = [String]()
     
-    override func viewDidLoad() {        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return playlistNames.count
+    }
+    
+    @IBOutlet weak var playlistsCollectionView: UICollectionView! {
+        didSet {
+            playlistsCollectionView.dataSource = self
+            playlistsCollectionView.delegate = self as? UICollectionViewDelegate
+        }
+    }
+    
+    override func viewDidLoad() {
         var donePlaylists = false
         spotifyManager.getListOfPlaylists { (playlistNames) in
             let group = DispatchGroup()
@@ -35,18 +39,27 @@ class PlaylistsViewContoller: UIViewController /*, UICollectionViewDataSource*/ 
             
             if donePlaylists {
                 print("Playlist Names:", playlistNames)
+            self.playlistsCollectionView.performSelector(onMainThread: #selector(UICollectionView.reloadData), with: nil, waitUntilDone: true)
             }
         }
         
-        spotifyManager.createPlaylist(name: "new")
-        print("done")
+//        DispatchQueue.main.async {
+//            self.playlistsCollectionView.reloadData()
+//        }
+
+        
+//        spotifyManager.createPlaylist(name: "new")
+//        print("done")
     }
 }
 
-//extension PlaylistsViewContoller: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let cell_width = collectionView.bounds.width
-//        let cell_height: CGFloat = 105
-//        return CGSize(width: cell_width, height: cell_height)
-//    }
-//}
+extension PlaylistsViewContoller: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "playlistCell", for: indexPath) as! PlaylistCell
+        
+        let playlist = playlistNames[indexPath.row]
+        cell.displayContent(playlistName: playlist)
+        
+        return cell
+    }
+}

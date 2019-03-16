@@ -898,7 +898,7 @@ public class SpotifyManager {
     public func createPlaylist(name: String) {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
         
-        // Change evenually
+        // Change eventually to make general for any username
         let url = URL(string: "https://api.spotify.com/v1/users/ec__/playlists")
         
         var request = URLRequest(url: url!)
@@ -912,19 +912,25 @@ public class SpotifyManager {
         let json: [String: Any] = ["name": name]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
-                
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print(error!)
                 return
             }
             
-            guard let data = data else {
+            guard data != nil else {
                 print("Data is empty")
                 return
             }
             
-            print(response)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 201 {
+                    print("Successfully created playlist")
+                } else {
+                    print("Could not create playlist")
+                }
+            }
         }
         
         task.resume()

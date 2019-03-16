@@ -7,7 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
-//class PlaylistCell: UICollectionViewCell {
-//    static let reuseIdentifier = "playlistCell"
-//}
+class PlaylistCell: UICollectionViewCell {
+    static let reuseIdentifier = "playlistCell"
+
+    @IBOutlet weak var playlistNameLabel: UILabel!
+    
+    func displayContent(playlistName: String) {
+        playlistNameLabel.text = playlistName
+    }
+}
