@@ -11,15 +11,20 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var authorizeButton: UIButton!
+    @IBOutlet weak var deauthButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        spotifyManager.refreshTokenIfNeeded()
     }
 
     // Authourize user's Spotify account
     @IBAction func clickAuthorize(_ sender: Any) {
         spotifyManager.authorize()
+    }
+    
+    @IBAction func clickDeauthorize(_ sender: Any) {
+        spotifyManager.deauthorize()
     }
 }
 

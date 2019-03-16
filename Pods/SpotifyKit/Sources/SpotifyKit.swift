@@ -107,12 +107,13 @@ fileprivate enum SpotifyQuery: String, URLConvertible {
  // TODO: test this more
  */
 fileprivate enum SpotifyScope: String {
-    case readPrivate    = "user-read-private"
-    case readEmail      = "user-read-email"
-    case libraryModify  = "user-library-modify"
-    case libraryRead    = "user-library-read"
-    case playlistRead   = "playlist-read-private"
-    case playlistModify = "playlist-modify-private"
+    case readPrivate           = "user-read-private"
+    case readEmail             = "user-read-email"
+    case libraryModify         = "user-library-modify"
+    case libraryRead           = "user-library-read"
+    case playlistRead          = "playlist-read-private"
+    case playlistModifyPrivate = "playlist-modify-private"
+    case playlistModifyPublic  = "playlist-modify-public"
     
     /**
      Creates a string to pass as parameter value
@@ -697,7 +698,7 @@ public class SpotifyManager {
         return [SpotifyParameter.clientId: application.clientId,
                 SpotifyParameter.responseType: SpotifyAuthorizationResponseType.code.rawValue,
                 SpotifyParameter.redirectUri: application.redirectUri,
-                SpotifyParameter.scope: SpotifyScope.string(with: [.readPrivate, .readEmail, .libraryModify, .libraryRead])]
+                SpotifyParameter.scope: SpotifyScope.string(with: [.readPrivate, .readEmail, .libraryModify, .libraryRead, .playlistRead, .playlistModifyPrivate, .playlistModifyPublic])]
     }
     
     /**
@@ -757,4 +758,217 @@ public class SpotifyManager {
         return try? JSONDecoder().decode(SpotifyToken.self, from: data)
     }
     
+    // MARK: Added code to pull relevant information
+    
+    // Codable for list of playlists
+    struct PlaylistsList: Codable {
+        let href: String?
+        let items: [Item]?
+        let limit: Int
+        let next: JSONNull?
+        let offset: Int
+        let previous: JSONNull?
+        let total: Int
+    }
+    
+    struct Item: Codable {
+        let collaborative: Bool
+        let externalUrls: ExternalUrls
+        let href: String?
+        let id: String
+        let images: [Image]
+        let name: String
+        let owner: Owner
+        let primaryColor: JSONNull?
+        let itemPublic: Bool
+        let snapshotID: String
+        let tracks: Tracks
+        let type, uri: String
+        
+        enum CodingKeys: String, CodingKey {
+            case collaborative
+            case externalUrls = "external_urls"
+            case href, id, images, name, owner
+            case primaryColor = "primary_color"
+            case itemPublic = "public"
+            case snapshotID = "snapshot_id"
+            case tracks, type, uri
+        }
+    }
+    
+    struct ExternalUrls: Codable {
+        let spotify: String
+    }
+    
+    struct Image: Codable {
+        let height: Int
+        let url: String
+        let width: Int
+    }
+    
+    struct Owner: Codable {
+        let displayName: String
+        let externalUrls: ExternalUrls
+        let href: String
+        let id, type, uri: String
+        
+        enum CodingKeys: String, CodingKey {
+            case displayName = "display_name"
+            case externalUrls = "external_urls"
+            case href, id, type, uri
+        }
+    }
+    
+    struct Tracks: Codable {
+        let href: String
+        let total: Int
+    }
+    
+    class JSONNull: Codable, Hashable {
+        
+        public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
+            return true
+        }
+        
+        public var hashValue: Int {
+            return 0
+        }
+        
+        public init() {}
+        
+        public required init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if !container.decodeNil() {
+                throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
+            }
+        }
+        
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encodeNil()
+        }
+    }
+    
+    // End Codeable declare
+    
+    // Gets list of playlists from user's Spotify account
+    public func getListOfPlaylists(completionBlock: @escaping ([String]) -> Void) -> Void {
+        let auth = self.token!.tokenType + " " + self.token!.accessToken
+        
+        let url = URL(string: "https://api.spotify.com/v1/me/playlists")
+        
+        var request = URLRequest(url: url!)
+        
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(auth, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            
+            guard let data = data else {
+                print("Data is empty")
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                let json_response = try decoder.decode(PlaylistsList.self, from: data)
+                
+                var playlistNames = [String]()
+                
+                for Item in json_response.items! {
+                    playlistNames.append(Item.name)
+                }
+                
+                completionBlock(playlistNames)
+            } catch {
+                print(error)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    // Create an empty playlist on user's Spotify account
+    public func createPlaylist(name: String) {
+        let auth = self.token!.tokenType + " " + self.token!.accessToken
+        
+        // Change evenually
+        let url = URL(string: "https://api.spotify.com/v1/users/ec__/playlists")
+        
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+
+        
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(auth, forHTTPHeaderField: "Authorization")
+        
+        let json: [String: Any] = ["name": name]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+                
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            
+            guard let data = data else {
+                print("Data is empty")
+                return
+            }
+            
+            print(response)
+        }
+        
+        task.resume()
+    }
+    
+    
+    
+    // Refreshes the token if needed
+    public func refreshTokenIfNeeded() {
+        if hasToken {
+            if (token?.isExpired)! {
+                // If the token is expired, refresh it first
+                // Then try repeating the operation
+                refreshToken { refreshed in
+                    if refreshed {
+                        print("token refreshed")
+                    }
+                }
+            }
+        } else {
+            authorize()
+        }
+    }
+    
+}
+
+extension Dictionary {
+    func percentEscaped() -> String {
+        return map { (key, value) in
+            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            return escapedKey + "=" + escapedValue
+            }
+            .joined(separator: "&")
+    }
+}
+
+extension CharacterSet {
+    static let urlQueryValueAllowed: CharacterSet = {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+        
+        var allowed = CharacterSet.urlQueryAllowed
+        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        return allowed
+    }()
 }

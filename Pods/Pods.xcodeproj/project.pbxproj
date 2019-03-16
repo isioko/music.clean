@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,7 +33,7 @@
 		06CB2306F39E6977A85E2D27FB6E0ECF /* Pods-music.clean-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-music.clean-frameworks.sh"; sourceTree = "<group>"; };
 		15DAA10170AF6B4303C02EF682D678FD /* SpotifyKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SpotifyKit-prefix.pch"; sourceTree = "<group>"; };
 		1BA2F7A41E3236F61519852C2B1FD2FD /* Pods-music.clean.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-music.clean.release.xcconfig"; sourceTree = "<group>"; };
-		24390EFD555DD124430DFF9724065945 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		24390EFD555DD124430DFF9724065945 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3632C42037E4EE6AB16D762E0C796939 /* Pods-music.clean-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-music.clean-umbrella.h"; sourceTree = "<group>"; };
 		606EB8C04F7608A207D29D2890B6CAC6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DFAB0311E60066128EDF3BE09F7FE44 /* SpotifyKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SpotifyKit-dummy.m"; sourceTree = "<group>"; };
@@ -43,14 +43,14 @@
 		9B64576F2AA16D3A57645752979A0F78 /* SpotifyItems.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyItems.swift; path = Sources/SpotifyItems.swift; sourceTree = "<group>"; };
 		9F8FD171BE4D789A3F3B745576EA2B84 /* Pods-music.clean.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-music.clean.modulemap"; sourceTree = "<group>"; };
 		AA185733EAA58DFD7EF742A6B9EC1C0B /* SpotifyKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyKit.swift; path = Sources/SpotifyKit.swift; sourceTree = "<group>"; };
-		B2FCF7DA1A39021D021168BB36F41DC1 /* SpotifyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SpotifyKit.framework; path = SpotifyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2FCF7DA1A39021D021168BB36F41DC1 /* SpotifyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SpotifyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6777CF0173FBC7D46B6399BDEA24029 /* Pods-music.clean.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-music.clean.debug.xcconfig"; sourceTree = "<group>"; };
 		B9A1AA83660EB563D34CD5910B472B44 /* Pods-music.clean-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-music.clean-acknowledgements.markdown"; sourceTree = "<group>"; };
 		BA284A10D74BC2FC39C44AAF99ECC9C8 /* Pods-music.clean-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-music.clean-acknowledgements.plist"; sourceTree = "<group>"; };
 		C6B27AAB26223590B5E15D5280187956 /* Pods-music.clean-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-music.clean-resources.sh"; sourceTree = "<group>"; };
 		CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		DBF1F7CCFBC279408A4409F955A8D0FF /* SpotifyKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SpotifyKit-umbrella.h"; sourceTree = "<group>"; };
-		E8E7E74192AEC752DB622BDDAA33622B /* Pods_music_clean.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_music_clean.framework; path = "Pods-music.clean.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8E7E74192AEC752DB622BDDAA33622B /* Pods_music_clean.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_music_clean.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9BB2695A24DDFD37C667F94EA5E208C /* Keychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = Sources/Keychain.swift; sourceTree = "<group>"; };
 		F12AFB0D510FFFFD09301B3FE23AF380 /* Pods-music.clean-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-music.clean-dummy.m"; sourceTree = "<group>"; };
 		F43E73135ACFFF4AB7E1DD10D4C822CD /* SpotifyKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SpotifyKit.modulemap; sourceTree = "<group>"; };
@@ -169,7 +169,6 @@
 				8F5AB0BAC7495C0E2AA976430DE833F3 /* WebCommunications.swift */,
 				0884E4B5C6802A34649154B33A8F5AFF /* Support Files */,
 			);
-			name = SpotifyKit;
 			path = SpotifyKit;
 			sourceTree = "<group>";
 		};
@@ -240,6 +239,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
+				TargetAttributes = {
+					830DCC3C27070ECE9955DE95D7A8B0A1 = {
+						LastSwiftMigration = 1010;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -314,6 +318,7 @@
 			baseConfigurationReference = 1BA2F7A41E3236F61519852C2B1FD2FD /* Pods-music.clean.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -327,11 +332,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-music.clean/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-music.clean/Pods-music.clean.modulemap";
 				OTHER_LDFLAGS = "";
@@ -341,6 +342,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -366,11 +368,7 @@
 				INFOPLIST_FILE = "Target Support Files/SpotifyKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SpotifyKit/SpotifyKit.modulemap";
 				PRODUCT_MODULE_NAME = SpotifyKit;
 				PRODUCT_NAME = SpotifyKit;
@@ -469,11 +467,7 @@
 				INFOPLIST_FILE = "Target Support Files/SpotifyKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SpotifyKit/SpotifyKit.modulemap";
 				PRODUCT_MODULE_NAME = SpotifyKit;
 				PRODUCT_NAME = SpotifyKit;
@@ -492,6 +486,7 @@
 			baseConfigurationReference = B6777CF0173FBC7D46B6399BDEA24029 /* Pods-music.clean.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -505,11 +500,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-music.clean/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-music.clean/Pods-music.clean.modulemap";
 				OTHER_LDFLAGS = "";
@@ -519,6 +510,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -580,8 +573,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};

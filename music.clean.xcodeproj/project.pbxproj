@@ -14,6 +14,8 @@
 		6AA5970A223CBB370011DFB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AA59709223CBB370011DFB8 /* Assets.xcassets */; };
 		6AA5970D223CBB370011DFB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AA5970B223CBB370011DFB8 /* LaunchScreen.storyboard */; };
 		6AA59715223CC4F70011DFB8 /* SpotifyAppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59714223CC4F70011DFB8 /* SpotifyAppInfo.swift */; };
+		6AA5971A223CCF620011DFB8 /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59719223CCF620011DFB8 /* PlaylistCell.swift */; };
+		6AA5971C223CD0280011DFB8 /* PlaylistsViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA5971B223CD0280011DFB8 /* PlaylistsViewContoller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		6AA5970C223CBB370011DFB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AA5970E223CBB370011DFB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AA59714223CC4F70011DFB8 /* SpotifyAppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAppInfo.swift; sourceTree = "<group>"; };
+		6AA59719223CCF620011DFB8 /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
+		6AA5971B223CD0280011DFB8 /* PlaylistsViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsViewContoller.swift; sourceTree = "<group>"; };
 		800ADE85DE0E17CFB89DD06C /* Pods-music.clean.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-music.clean.release.xcconfig"; path = "Pods/Target Support Files/Pods-music.clean/Pods-music.clean.release.xcconfig"; sourceTree = "<group>"; };
 		A0C0A36928549777A03ABC4F /* Pods-music.clean.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-music.clean.debug.xcconfig"; path = "Pods/Target Support Files/Pods-music.clean/Pods-music.clean.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +67,8 @@
 		6AA59701223CBB330011DFB8 /* music.clean */ = {
 			isa = PBXGroup;
 			children = (
+				6AA59718223CCF340011DFB8 /* Model */,
+				6AA59716223CCF1F0011DFB8 /* Cells */,
 				6AA59702223CBB330011DFB8 /* AppDelegate.swift */,
 				6AA59704223CBB330011DFB8 /* ViewController.swift */,
 				6AA59706223CBB330011DFB8 /* Main.storyboard */,
@@ -70,8 +76,24 @@
 				6AA5970B223CBB370011DFB8 /* LaunchScreen.storyboard */,
 				6AA5970E223CBB370011DFB8 /* Info.plist */,
 				6AA59714223CC4F70011DFB8 /* SpotifyAppInfo.swift */,
+				6AA5971B223CD0280011DFB8 /* PlaylistsViewContoller.swift */,
 			);
 			path = music.clean;
+			sourceTree = "<group>";
+		};
+		6AA59716223CCF1F0011DFB8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6AA59719223CCF620011DFB8 /* PlaylistCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		6AA59718223CCF340011DFB8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BEE346873B948AB2454826B1 /* Pods */ = {
@@ -212,8 +234,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AA59705223CBB330011DFB8 /* ViewController.swift in Sources */,
+				6AA5971C223CD0280011DFB8 /* PlaylistsViewContoller.swift in Sources */,
 				6AA59703223CBB330011DFB8 /* AppDelegate.swift in Sources */,
 				6AA59715223CC4F70011DFB8 /* SpotifyAppInfo.swift in Sources */,
+				6AA5971A223CCF620011DFB8 /* PlaylistCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

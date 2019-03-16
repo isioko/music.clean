@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+//class PlaylistCell: UICollectionViewCell {
+//    static let reuseIdentifier = "playlistCell"
+//}
