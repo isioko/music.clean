@@ -15,12 +15,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        spotifyManager.refreshTokenIfNeeded()
     }
 
     // Authourize user's Spotify account
     @IBAction func clickAuthorize(_ sender: Any) {
         spotifyManager.authorize()
+        spotifyManager.refreshTokenIfNeeded()
     }
     
     @IBAction func clickDeauthorize(_ sender: Any) {

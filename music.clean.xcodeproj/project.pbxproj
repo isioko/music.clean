@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		66DD033EB0D2F0CEF0332B22 /* Pods_music_clean.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AE1683D7B71A6143A98CA9 /* Pods_music_clean.framework */; };
+		6A22D354224723F3007CAFAC /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A22D353224723F3007CAFAC /* Playlist.swift */; };
 		6AA59703223CBB330011DFB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59702223CBB330011DFB8 /* AppDelegate.swift */; };
 		6AA59705223CBB330011DFB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59704223CBB330011DFB8 /* ViewController.swift */; };
 		6AA59708223CBB330011DFB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AA59706223CBB330011DFB8 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		09AE1683D7B71A6143A98CA9 /* Pods_music_clean.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_music_clean.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A22D353224723F3007CAFAC /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Playlist.swift; path = Pods/SpotifyKit/Playlist.swift; sourceTree = SOURCE_ROOT; };
 		6AA596FF223CBB330011DFB8 /* music.clean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = music.clean.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA59702223CBB330011DFB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AA59704223CBB330011DFB8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		6AA59718223CCF340011DFB8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6A22D353224723F3007CAFAC /* Playlist.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				6AA59703223CBB330011DFB8 /* AppDelegate.swift in Sources */,
 				6AA59715223CC4F70011DFB8 /* SpotifyAppInfo.swift in Sources */,
 				6AA5971A223CCF620011DFB8 /* PlaylistCell.swift in Sources */,
+				6A22D354224723F3007CAFAC /* Playlist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

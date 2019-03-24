@@ -762,7 +762,7 @@ public class SpotifyManager {
     
     // Codable for list of playlists
     struct PlaylistsList: Codable {
-        let href: String?
+        let href: String
         let items: [Item]?
         let limit: Int
         let next: JSONNull?
@@ -852,10 +852,11 @@ public class SpotifyManager {
     // End Codeable declare
     
     // Gets list of playlists from user's Spotify account
-    public func getListOfPlaylists(completionBlock: @escaping ([String]) -> Void) -> Void {
+    public func getListOfPlaylists(completionBlock: @escaping ([(String, String)]) -> Void) -> Void {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
         
-        let url = URL(string: "https://api.spotify.com/v1/me/playlists")
+        let urlString = "https://api.spotify.com/v1/me/playlists?limit=50"
+        let url = URL(string: urlString)
         
         var request = URLRequest(url: url!)
         
@@ -879,10 +880,10 @@ public class SpotifyManager {
             do {
                 let json_response = try decoder.decode(PlaylistsList.self, from: data)
                 
-                var playlistNames = [String]()
+                var playlistNames = [(String, String)]()
                 
                 for Item in json_response.items! {
-                    playlistNames.append(Item.name)
+                    playlistNames.append((Item.name, Item.id))
                 }
                 
                 completionBlock(playlistNames)
@@ -936,6 +937,199 @@ public class SpotifyManager {
         task.resume()
     }
     
+    // Get all explicit songs in given playlist
+    public func getExplicitTracks(playlistID: String) {
+        
+    }
+    
+    // Begin Codeable
+    
+    struct PlaylistTracks: Codable {
+        let href: String?
+        let items: [Item2]?
+        let limit: Int?
+        let next: JSONNull?
+        let offset: Int?
+        let previous: JSONNull?
+        let total: Int?
+    }
+    
+    struct Item2: Codable {
+        let addedAt: String
+        let addedBy: AddedBy
+        let isLocal: Bool
+        let track: Track?
+        
+        enum CodingKeys: String, CodingKey {
+            case addedAt = "added_at"
+            case addedBy = "added_by"
+            case isLocal = "is_local"
+            case track
+        }
+    }
+    
+    struct AddedBy: Codable {
+        let externalUrls: ExternalUrls2
+        let href: String?
+        let id, type, uri: String
+        let name: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case externalUrls = "external_urls"
+            case href, id, type, uri, name
+        }
+    }
+    
+    struct ExternalUrls2: Codable {
+        let spotify: String
+    }
+    
+    struct Track: Codable {
+        let album: Album
+        let artists: [AddedBy]
+        let availableMarkets: [String]
+        let discNumber, durationMS: Int
+        let explicit: Bool
+        let externalIDS: ExternalIDS
+        let externalUrls: ExternalUrls2
+        let href: String?
+        let id, name: String
+        let popularity: Int
+        let previewURL: String?
+        let trackNumber: Int
+        let type, uri: String
+        
+        enum CodingKeys: String, CodingKey {
+            case album, artists
+            case availableMarkets = "available_markets"
+            case discNumber = "disc_number"
+            case durationMS = "duration_ms"
+            case explicit
+            case externalIDS = "external_ids"
+            case externalUrls = "external_urls"
+            case href, id, name, popularity
+            case previewURL = "preview_url"
+            case trackNumber = "track_number"
+            case type, uri
+        }
+    }
+    
+    struct Album: Codable {
+        let albumType: String
+        let artists: [AddedBy]
+        let availableMarkets: [String]
+        let externalUrls: ExternalUrls2
+        let href: String?
+        let id: String
+        let images: [Image2]
+        let name, type, uri: String
+        
+        enum CodingKeys: String, CodingKey {
+            case albumType = "album_type"
+            case artists
+            case availableMarkets = "available_markets"
+            case externalUrls = "external_urls"
+            case href, id, images, name, type, uri
+        }
+    }
+    
+    struct Image2: Codable {
+        let height: Int
+        let url: String
+        let width: Int
+    }
+    
+    struct ExternalIDS: Codable {
+        let isrc: String
+    }
+    
+    // End Codeable
+    
+    public func getAllTracksInPlaylist(playlistID: String, completionBlock: @escaping ([(String, String, Bool)]) -> Void) -> Void {
+        let auth = self.token!.tokenType + " " + self.token!.accessToken
+        
+        
+        let urlString = "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks"
+        let url = URL(string: urlString)
+        
+        var request = URLRequest(url: url!)
+        request.httpMethod = "GET"
+
+        request.addValue(auth, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            
+            guard let data = data else {
+                print("Data is empty")
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                let json_response = try decoder.decode(PlaylistTracks.self, from: data)
+                
+                var trackNames = [(String, String, Bool)]()
+                
+                for Track in json_response.items! {
+                    trackNames.append(((Track.track?.name)!, (Track.track?.id)!, (Track.track?.explicit)!))
+                }
+                
+                completionBlock(trackNames)
+            } catch {
+                print(error)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    // Search for clean version of given song
+    public func searchForCleanVersion(name: String) {
+//        let auth = self.token!.tokenType + " " + self.token!.accessToken
+//
+//        // Change eventually to make general for any username
+//        let url = URL(string: "https://api.spotify.com/v1/users/ec__/playlists")
+//
+//        var request = URLRequest(url: url!)
+//        request.httpMethod = "POST"
+//
+//
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue(auth, forHTTPHeaderField: "Authorization")
+//
+//        let json: [String: Any] = ["name": name]
+//        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+//        request.httpBody = jsonData
+//
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard error == nil else {
+//                print(error!)
+//                return
+//            }
+//
+//            guard data != nil else {
+//                print("Data is empty")
+//                return
+//            }
+//
+//            if let httpResponse = response as? HTTPURLResponse {
+//                if httpResponse.statusCode == 201 {
+//                    print("Successfully created playlist")
+//                } else {
+//                    print("Could not create playlist")
+//                }
+//            }
+//        }
+//
+//        task.resume()
+    }
+    
     
     
     // Refreshes the token if needed
@@ -954,7 +1148,6 @@ public class SpotifyManager {
             authorize()
         }
     }
-    
 }
 
 extension Dictionary {
