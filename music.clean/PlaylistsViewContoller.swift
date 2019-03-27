@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class PlaylistsViewContoller: UIViewController, UICollectionViewDataSource {
     
@@ -28,11 +29,29 @@ class PlaylistsViewContoller: UIViewController, UICollectionViewDataSource {
     }
     
     override func viewDidLoad() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+
         var donePlaylists = false
-        spotifyManager.getListOfPlaylists { (playlistNames) in
+        spotifyManager.getListOfPlaylists { (playlists) in
             let group = DispatchGroup()
-            playlistNames.forEach { playlist in
+            playlists.forEach { playlist in
                 group.enter()
+                
+                // Start: Add playlist info to CoreData
+                let entity = NSEntityDescription.entity(forEntityName: "Playlist", in: context)
+                let newPlaylist = NSManagedObject(entity: entity!, insertInto: context)
+                newPlaylist.setValue(playlist.0, forKey: "playlistName")
+                newPlaylist.setValue(playlist.1, forKey: "playlistID")
+                newPlaylist.setValue(playlist.2, forKey: "numTracks")
+                
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed saving")
+                }
+                // End: Add playlist info to CoreData
+
                 
                 self.playlistNames.append(playlist.0)
                 self.playlistIDs.append(playlist.1)
@@ -76,19 +95,17 @@ extension PlaylistsViewContoller: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let selectedPlaylistID = playlistIDs[indexPath.row]
-        var doneTracks = false
-        spotifyManager.getAllTracksInPlaylist(playlistID: selectedPlaylistID) { (trackNames) in
+//        var doneTracks = false
+        spotifyManager.getAllTracksInPlaylist(playlistID: selectedPlaylistID) { (tracks) in
             
             let group = DispatchGroup()
-            trackNames.forEach { track in
+            tracks.forEach { track in
                 group.enter()
                 
-                self.trackNames.append(track.0)
                 
                 group.leave()
             }
-            doneTracks = true
-            print(trackNames)
+//            doneTracks = true
         }
     }
 }

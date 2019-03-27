@@ -852,7 +852,7 @@ public class SpotifyManager {
     // End Codeable declare
     
     // Gets list of playlists from user's Spotify account
-    public func getListOfPlaylists(completionBlock: @escaping ([(String, String)]) -> Void) -> Void {
+    public func getListOfPlaylists(completionBlock: @escaping ([(String, String, Int)]) -> Void) -> Void {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
         
         let urlString = "https://api.spotify.com/v1/me/playlists?limit=50"
@@ -880,13 +880,14 @@ public class SpotifyManager {
             do {
                 let json_response = try decoder.decode(PlaylistsList.self, from: data)
                 
-                var playlistNames = [(String, String)]()
+                // (playlistName, playlistId, numTracks)
+                var playlists = [(String, String, Int)]()
                 
                 for Item in json_response.items! {
-                    playlistNames.append((Item.name, Item.id))
+                    playlists.append((Item.name, Item.id, Item.tracks.total))
                 }
                 
-                completionBlock(playlistNames)
+                completionBlock(playlists)
             } catch {
                 print(error)
             }
@@ -1045,7 +1046,7 @@ public class SpotifyManager {
     
     // End Codeable
     
-    public func getAllTracksInPlaylist(playlistID: String, completionBlock: @escaping ([(String, String, Bool)]) -> Void) -> Void {
+    public func getAllTracksInPlaylist(playlistID: String, completionBlock: @escaping ([(String, String, String, String, Bool)]) -> Void) -> Void {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
         
         
@@ -1073,13 +1074,44 @@ public class SpotifyManager {
             do {
                 let json_response = try decoder.decode(PlaylistTracks.self, from: data)
                 
-                var trackNames = [(String, String, Bool)]()
-                
+                var tracks = [(String, String, String, String, Bool)]()
+            
                 for Track in json_response.items! {
-                    trackNames.append(((Track.track?.name)!, (Track.track?.id)!, (Track.track?.explicit)!))
+//                    trackNames.append(((Track.track?.name)!, (Track.track?.id)!, (Track.track?.explicit)!))
+                    
+                    // (trackName, trackID, artists, artworkImage, explicit)
+                    var track: (String, String, String, String, Bool)
+                    
+                    let trackName = Track.track?.name
+                    track.0 = trackName!
+                    
+                    let trackID = Track.track?.id
+                    track.1 = trackID!
+                    
+                    var artistsString = ""
+                    
+                    let numArtists = Track.track?.artists.count
+                    var numArtistsInString = 0
+                    for Artist in (Track.track?.artists)! {
+                        numArtistsInString += 1
+                        artistsString += Artist.name!
+                        if numArtistsInString != numArtists {
+                            artistsString += ", "
+                        }
+                    }
+                    track.2 = artistsString
+                    
+                    
+                    let image = Track.track?.album.images[0]
+                    track.3 = image!.url
+                    
+                    let explicit = Track.track?.explicit
+                    track.4 = explicit!
+                    
+                    tracks.append(track)
                 }
                 
-                completionBlock(trackNames)
+                completionBlock(tracks)
             } catch {
                 print(error)
             }
