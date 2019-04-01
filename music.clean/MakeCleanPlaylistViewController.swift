@@ -7,3 +7,83 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
+
+class MakeCleanPlaylistViewController: UIViewController {
+    /* Steps:
+     1. Create a new empty playlist
+     2. Add all already clean songs to playlist
+     3. Search for clean versions of explicit songs and add to the playlist
+    */
+    
+    var playlistID = ""
+    var selectedPlaylistName = ""
+    var playlistTracks = [Track]()
+    var newPlaylistID = ""
+    var cleanTracks = [String]() // Contains trackURIs of clean tracks
+    var explicitTracks = [Track]()
+    
+    override func viewDidLoad() {
+        selectedPlaylistName = UserDefaults.standard.string(forKey: "selectedPlaylistName")!
+        
+        // Start task 1: Create a new empty playlist
+        let semaphore = DispatchSemaphore(value: 0)
+
+        let newPlaylistName = selectedPlaylistName + " CLEANED"
+        spotifyManager.createPlaylist(name: newPlaylistName, completionHandler: { newID in
+            semaphore.signal()
+            self.newPlaylistID = newID
+        })
+        
+        semaphore.wait()
+        // End task 1: Create a new empty playlist
+        
+        // Task 2: Filter clean and explicit songs
+        filterExplicitTracks()
+    
+        // Task 3: Add already clean songs
+        spotifyManager.addTracksToPlaylist(playlistID: newPlaylistID, uris: cleanTracks)
+    }
+    
+    // TAKE OUT OR ADD to viewDidLoad
+    func createNewPlaylist() {
+        let newPlaylistName = selectedPlaylistName + " CLEANED"
+        spotifyManager.createPlaylist(name: newPlaylistName, completionHandler: { newID in
+            self.newPlaylistID = newID
+        })
+    }
+    
+    func filterExplicitTracks() {
+        for track in playlistTracks {
+            if track.explicit {
+                explicitTracks.append(track)
+            } else {
+                cleanTracks.append(track.trackURI)
+            }
+        }
+    }
+    
+    func addAlreadyCleanSongs() {
+        
+    }
+
+    func getSelectedPlaylistID() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        // Fetch the selected playlist object from CoreData
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Playlist")
+        request.predicate = NSPredicate(format: "playlistName == %@", selectedPlaylistName)
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                // Set the information of the playlist for later reference
+                self.playlistID = data.value(forKey: "playlistID") as! String
+            }
+        } catch { // Could not fetch playlist
+            print("Failed")
+        }
+    }
+}

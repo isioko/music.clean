@@ -897,7 +897,7 @@ public class SpotifyManager {
     }
     
     // Create an empty playlist on user's Spotify account
-    public func createPlaylist(name: String) {
+    public func createPlaylist(name: String, completionHandler: @escaping (String) -> Void) {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
         
         // Change eventually to make general for any username
@@ -925,12 +925,18 @@ public class SpotifyManager {
                 print("Data is empty")
                 return
             }
-            
+                        
             if let httpResponse = response as? HTTPURLResponse {
                 if httpResponse.statusCode == 201 {
                     print("Successfully created playlist")
                 } else {
                     print("Could not create playlist")
+                }
+                
+                if let location = httpResponse.allHeaderFields["Location"] as? String {
+                    let locationComponents = location.components(separatedBy: "/")
+                    let newPlaylistID = locationComponents[locationComponents.count - 1]
+                    completionHandler(newPlaylistID)
                 }
             }
         }
@@ -1046,7 +1052,7 @@ public class SpotifyManager {
     
     // End Codeable
     
-    public func getAllTracksInPlaylist(playlistID: String, completionBlock: @escaping ([(String, String, String, String, Bool)]) -> Void) -> Void {
+    public func getAllTracksInPlaylist(playlistID: String, completionBlock: @escaping ([(String, String, String, String, String, Bool)]) -> Void) -> Void {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
         
         
@@ -1074,13 +1080,11 @@ public class SpotifyManager {
             do {
                 let json_response = try decoder.decode(PlaylistTracks.self, from: data)
                 
-                var tracks = [(String, String, String, String, Bool)]()
+                var tracks = [(String, String, String, String, String, Bool)]()
             
                 for Track in json_response.items! {
-//                    trackNames.append(((Track.track?.name)!, (Track.track?.id)!, (Track.track?.explicit)!))
-                    
-                    // (trackName, trackID, artists, artworkImage, explicit)
-                    var track: (String, String, String, String, Bool)
+                    // (trackName, trackID, artists, artworkImage, trackURI, explicit)
+                    var track: (String, String, String, String, String, Bool)
                     
                     let trackName = Track.track?.name
                     track.0 = trackName!
@@ -1105,8 +1109,11 @@ public class SpotifyManager {
                     let image = Track.track?.album.images[0]
                     track.3 = image!.url
                     
+                    let trackURI = Track.track?.uri
+                    track.4 = trackURI!
+                    
                     let explicit = Track.track?.explicit
-                    track.4 = explicit!
+                    track.5 = explicit!
                     
                     tracks.append(track)
                 }
@@ -1114,6 +1121,36 @@ public class SpotifyManager {
                 completionBlock(tracks)
             } catch {
                 print(error)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    public func addTracksToPlaylist(playlistID: String, uris: [String]) {
+        let auth = self.token!.tokenType + " " + self.token!.accessToken
+        
+        var uriString = "uris=" + uris.joined(separator: ",")
+        uriString = uriString.replacingOccurrences(of: ":", with: "%3A")
+        
+        let urlString = "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks?" + uriString
+        let url = URL(string: urlString)
+        
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        
+        request.addValue(auth, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            
+            guard data != nil else {
+                print("Data is empty")
+                return
             }
         }
         

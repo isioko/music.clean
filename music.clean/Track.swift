@@ -7,3 +7,23 @@
 //
 
 import Foundation
+import UIKit
+
+class Track {
+    // (trackName, trackID, artists, artworkImage, explicit)
+    public var trackName: String
+    public var trackID: String
+    public var artistName: String
+    public var artworkImage: String
+    public var trackURI: String
+    public var explicit: Bool
+    
+    init() {
+        self.trackName = ""
+        self.trackID = ""
+        self.artistName = ""
+        self.artworkImage = ""
+        self.trackURI = ""
+        self.explicit = false
+    }
+}

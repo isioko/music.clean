@@ -5,7 +5,15 @@
         <attribute name="playlistID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="playlistName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="PlaylistTrack" representedClassName="PlaylistTrack" syncable="YES" codeGenerationType="class">
+        <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artworkImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="explicit" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="trackID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Playlist" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="PlaylistTrack" positionX="-54" positionY="18" width="128" height="120"/>
     </elements>
 </model>
