@@ -23,6 +23,7 @@ class MakeCleanPlaylistViewController: UIViewController {
     var newPlaylistID = ""
     var cleanTracks = [String]() // Contains trackURIs of clean tracks
     var explicitTracks = [Track]()
+    var cleanedTracks = [String]() // Contains trackURIs of cleaned tracks from search
     
     override func viewDidLoad() {
         selectedPlaylistName = UserDefaults.standard.string(forKey: "selectedPlaylistName")!
@@ -45,9 +46,20 @@ class MakeCleanPlaylistViewController: UIViewController {
         // Task 3: Add already clean songs
         spotifyManager.addTracksToPlaylist(playlistID: newPlaylistID, uris: cleanTracks)
         
-        // Task 4: Search for clean versions of explicit songs
+        // Task 4: Search for clean versions of explicit songs and get uris
         let track = explicitTracks[0] // DEV :: for dev purposes only do one track change to for loop later
-        spotifyManager.searchForCleanVersion(trackName: track.trackName, trackArtists: track.artistName)
+        spotifyManager.searchForCleanVersion(trackName: track.trackName, trackArtists: track.artistName, completionBlock: { cleanTrackURI in
+            self.cleanedTracks.append(cleanTrackURI)
+            semaphore.signal()
+        })
+        
+        semaphore.wait()
+        // End task 4
+        
+        print("cleaned tracks", cleanedTracks)
+        
+        // Task 5: Add newly cleaned songs
+        spotifyManager.addTracksToPlaylist(playlistID: newPlaylistID, uris: cleanedTracks)
     }
     
     // TAKE OUT OR ADD to viewDidLoad

@@ -32,7 +32,9 @@ class ViewController: UIViewController {
         let trackName = "Always On Time"
         let trackArtists = "Ja Rule, Ashanti"
         
-        spotifyManager.searchForCleanVersion(trackName: trackName, trackArtists: trackArtists)
+        spotifyManager.searchForCleanVersion(trackName: trackName, trackArtists: trackArtists, completionBlock: { cleanTrackURI in
+            print("clean track uri", cleanTrackURI)
+        })
     }
 }
 

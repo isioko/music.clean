@@ -1260,7 +1260,7 @@ public class SpotifyManager {
     }
     
     // Search for clean version of given song
-    public func searchForCleanVersion(trackName: String, trackArtists: String) {
+    public func searchForCleanVersion(trackName: String, trackArtists: String, completionBlock: @escaping (String) -> Void) -> Void {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
 
         var trackNameURLEncoded = trackName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -1299,7 +1299,6 @@ public class SpotifyManager {
                 let json_response = try decoder.decode(Search.self, from: data!)
                 
                 for Item3 in json_response.tracks.items {
-                    print(Item3.name, Item3.explicit)
                     if Item3.name == trackName && !Item3.explicit {
                         var testArtistsString = ""
                         for Artist3 in Item3.artists {
@@ -1308,7 +1307,7 @@ public class SpotifyManager {
                         testArtistsString = testArtistsString.replacingOccurrences(of: "\\s+$", with: "", options: .regularExpression)
                         
                         if testArtistsString == trackArtists.replacingOccurrences(of: ", ", with: " ") {
-                            print("FOUND TRACK!")
+                            completionBlock(Item3.uri)
                             break
                         }
                     }
