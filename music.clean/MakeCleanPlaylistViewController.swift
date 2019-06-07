@@ -44,6 +44,10 @@ class MakeCleanPlaylistViewController: UIViewController {
     
         // Task 3: Add already clean songs
         spotifyManager.addTracksToPlaylist(playlistID: newPlaylistID, uris: cleanTracks)
+        
+        // Task 4: Search for clean versions of explicit songs
+        let track = explicitTracks[0] // DEV :: for dev purposes only do one track change to for loop later
+        spotifyManager.searchForCleanVersion(trackName: track.trackName, trackArtists: track.artistName)
     }
     
     // TAKE OUT OR ADD to viewDidLoad
@@ -62,10 +66,6 @@ class MakeCleanPlaylistViewController: UIViewController {
                 cleanTracks.append(track.trackURI)
             }
         }
-    }
-    
-    func addAlreadyCleanSongs() {
-        
     }
 
     func getSelectedPlaylistID() {

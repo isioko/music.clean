@@ -1052,6 +1052,108 @@ public class SpotifyManager {
     
     // End Codeable
     
+    // Start Search Codeable
+    struct Search: Codable {
+        let tracks: Tracks3
+    }
+    
+    struct Tracks3: Codable {
+        let href: String
+        let items: [Item3]
+        let limit: Int
+        let next: String
+        let offset: Int
+        let previous: JSONNull?
+        let total: Int
+    }
+    
+    struct Item3: Codable {
+        let album: Album3
+        let artists: [Artist3]
+        let availableMarkets: [String]
+        let discNumber, durationMS: Int
+        let explicit: Bool
+        let externalIDS: ExternalIDS3
+        let externalUrls: ExternalUrls3
+        let href: String
+        let id: String
+        let isLocal: Bool
+        let name: String
+        let popularity: Int
+        let previewURL: JSONNull?
+        let trackNumber: Int
+        let type, uri: String
+        
+        enum CodingKeys: String, CodingKey {
+            case album, artists
+            case availableMarkets = "available_markets"
+            case discNumber = "disc_number"
+            case durationMS = "duration_ms"
+            case explicit
+            case externalIDS = "external_ids"
+            case externalUrls = "external_urls"
+            case href, id
+            case isLocal = "is_local"
+            case name, popularity
+            case previewURL = "preview_url"
+            case trackNumber = "track_number"
+            case type, uri
+        }
+    }
+    
+    struct Album3: Codable {
+        let albumType: String
+        let artists: [Artist3]
+        let availableMarkets: [String]
+        let externalUrls: ExternalUrls3
+        let href: String
+        let id: String
+        let images: [Image3]
+        let name, releaseDate, releaseDatePrecision: String
+        let totalTracks: Int
+        let type, uri: String
+        
+        enum CodingKeys: String, CodingKey {
+            case albumType = "album_type"
+            case artists
+            case availableMarkets = "available_markets"
+            case externalUrls = "external_urls"
+            case href, id, images, name
+            case releaseDate = "release_date"
+            case releaseDatePrecision = "release_date_precision"
+            case totalTracks = "total_tracks"
+            case type, uri
+        }
+    }
+    
+    struct Artist3: Codable {
+        let externalUrls: ExternalUrls3
+        let href: String
+        let id, name, type, uri: String
+        
+        enum CodingKeys: String, CodingKey {
+            case externalUrls = "external_urls"
+            case href, id, name, type, uri
+        }
+    }
+    
+    struct ExternalUrls3: Codable {
+        let spotify: String
+    }
+    
+    struct Image3: Codable {
+        let height: Int
+        let url: String
+        let width: Int
+    }
+    
+    struct ExternalIDS3: Codable {
+        let isrc: String
+    }
+
+    
+    // End Search Codeable
+    
     public func getAllTracksInPlaylist(playlistID: String, completionBlock: @escaping ([(String, String, String, String, String, Bool)]) -> Void) -> Void {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
         
@@ -1129,7 +1231,7 @@ public class SpotifyManager {
     
     public func addTracksToPlaylist(playlistID: String, uris: [String]) {
         let auth = self.token!.tokenType + " " + self.token!.accessToken
-        
+    
         var uriString = "uris=" + uris.joined(separator: ",")
         uriString = uriString.replacingOccurrences(of: ":", with: "%3A")
         
@@ -1158,45 +1260,60 @@ public class SpotifyManager {
     }
     
     // Search for clean version of given song
-    public func searchForCleanVersion(name: String) {
-//        let auth = self.token!.tokenType + " " + self.token!.accessToken
-//
-//        // Change eventually to make general for any username
-//        let url = URL(string: "https://api.spotify.com/v1/users/ec__/playlists")
-//
-//        var request = URLRequest(url: url!)
-//        request.httpMethod = "POST"
-//
-//
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.addValue(auth, forHTTPHeaderField: "Authorization")
-//
-//        let json: [String: Any] = ["name": name]
+    public func searchForCleanVersion(trackName: String, trackArtists: String) {
+        print("trackName: ", trackName)
+        print("trackArtists: ", trackArtists)
+        
+        let auth = self.token!.tokenType + " " + self.token!.accessToken
+
+        var trackNameURLEncoded = trackName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        var trackArtistsURLEncoded = trackArtists.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        trackNameURLEncoded = trackNameURLEncoded.replacingOccurrences(of: ",", with: "%2C")
+        trackArtistsURLEncoded = trackArtistsURLEncoded.replacingOccurrences(of: ",", with: "%2C")
+        
+        let urlString = "https://api.spotify.com/v1/search?" + "q=" + trackNameURLEncoded + "%20" + trackArtistsURLEncoded + "%20clean" + "&type=track"
+        print(urlString) // DEV
+        
+        let url = URL(string: urlString)
+
+        var request = URLRequest(url: url!)
+        request.httpMethod = "GET"
+
+        request.addValue(auth, forHTTPHeaderField: "Authorization")
+
+//        let json: [String: Any] = ["name": trackName]
 //        let jsonData = try? JSONSerialization.data(withJSONObject: json)
 //        request.httpBody = jsonData
-//
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard error == nil else {
-//                print(error!)
-//                return
-//            }
-//
-//            guard data != nil else {
-//                print("Data is empty")
-//                return
-//            }
-//
-//            if let httpResponse = response as? HTTPURLResponse {
-//                if httpResponse.statusCode == 201 {
-//                    print("Successfully created playlist")
-//                } else {
-//                    print("Could not create playlist")
-//                }
-//            }
-//        }
-//
-//        task.resume()
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+
+            guard data != nil else {
+                print("Data is empty")
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            
+            print(data)
+            do {
+                let json_response = try decoder.decode(Search.self, from: data!)
+                
+                for Item3 in json_response.tracks.items {
+                    print(Item3.name, Item3.explicit)
+                    for Artist3 in Item3.artists {
+                        print(Artist3.name)
+                    }
+                }
+            } catch {
+                print("error")
+            }
+        }
+
+        task.resume()
     }
     
     

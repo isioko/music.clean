@@ -5,6 +5,7 @@
 //  Created by Isi Okojie on 3/15/19.
 //  Copyright © 2019 Isi Okojie. All rights reserved.
 //
+//  PURPOSE: Displays all playlists in collection view
 
 import Foundation
 import UIKit
@@ -52,7 +53,6 @@ class PlaylistsViewContoller: UIViewController, UICollectionViewDataSource {
                 }
                 // End: Add playlist info to CoreData
 
-                
                 self.playlistNames.append(playlist.0)
                 self.playlistIDs.append(playlist.1)
 
@@ -64,23 +64,7 @@ class PlaylistsViewContoller: UIViewController, UICollectionViewDataSource {
                 self.playlistsCollectionView.performSelector(onMainThread: #selector(UICollectionView.reloadData), with: nil, waitUntilDone: true)
             }
         }
-        
-        func getAllExplicitTracks() {
-            
-        }
-        
-        
-        
-        
-//        DispatchQueue.main.async {
-//            self.playlistsCollectionView.reloadData()
-//        }
-
-        
-//        spotifyManager.createPlaylist(name: "new")
-//        print("done")
     }
-
 }
 
 extension PlaylistsViewContoller: UICollectionViewDelegate {
