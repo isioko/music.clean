@@ -1061,7 +1061,7 @@ public class SpotifyManager {
         let href: String
         let items: [Item3]
         let limit: Int
-        let next: String
+        let next: String?
         let offset: Int
         let previous: JSONNull?
         let total: Int
@@ -1261,9 +1261,6 @@ public class SpotifyManager {
     
     // Search for clean version of given song
     public func searchForCleanVersion(trackName: String, trackArtists: String) {
-        print("trackName: ", trackName)
-        print("trackArtists: ", trackArtists)
-        
         let auth = self.token!.tokenType + " " + self.token!.accessToken
 
         var trackNameURLEncoded = trackName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -1271,8 +1268,7 @@ public class SpotifyManager {
         trackNameURLEncoded = trackNameURLEncoded.replacingOccurrences(of: ",", with: "%2C")
         trackArtistsURLEncoded = trackArtistsURLEncoded.replacingOccurrences(of: ",", with: "%2C")
         
-        let urlString = "https://api.spotify.com/v1/search?" + "q=" + trackNameURLEncoded + "%20" + trackArtistsURLEncoded + "%20clean" + "&type=track"
-        print(urlString) // DEV
+        let urlString = "https://api.spotify.com/v1/search?" + "q=track:" + trackNameURLEncoded + "%20artist:" + trackArtistsURLEncoded + "&type=track"
         
         let url = URL(string: urlString)
 
@@ -1280,10 +1276,6 @@ public class SpotifyManager {
         request.httpMethod = "GET"
 
         request.addValue(auth, forHTTPHeaderField: "Authorization")
-
-//        let json: [String: Any] = ["name": trackName]
-//        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-//        request.httpBody = jsonData
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
@@ -1298,7 +1290,11 @@ public class SpotifyManager {
             
             let decoder = JSONDecoder()
             
-            print(data)
+            // DEV
+            let str = String(decoding: data!, as: UTF8.self)
+            print(str)
+            // DEV
+            
             do {
                 let json_response = try decoder.decode(Search.self, from: data!)
                 
@@ -1309,7 +1305,7 @@ public class SpotifyManager {
                     }
                 }
             } catch {
-                print("error")
+                print("Error decoding search results")
             }
         }
 

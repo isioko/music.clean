@@ -44,6 +44,15 @@
                                     <action selector="clickDeauthorize:" destination="BYZ-38-t0r" eventType="touchUpInside" id="93X-YX-GLb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ttd-cg-bgN">
+                                <rect key="frame" x="133" y="516" width="116" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Test Search"/>
+                                <connections>
+                                    <action selector="clickTestSearch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uw3-vC-buW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -51,6 +60,7 @@
                     <connections>
                         <outlet property="authorizeButton" destination="yxe-gN-nfu" id="5d8-DV-zEN"/>
                         <outlet property="deauthButton" destination="kp7-oD-ViV" id="NhX-GJ-wCu"/>
+                        <outlet property="testSearchButton" destination="Ttd-cg-bgN" id="b6T-vU-XxH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var authorizeButton: UIButton!
     @IBOutlet weak var deauthButton: UIButton!
+    @IBOutlet weak var testSearchButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,13 @@ class ViewController: UIViewController {
     
     @IBAction func clickDeauthorize(_ sender: Any) {
         spotifyManager.deauthorize()
+    }
+    
+    @IBAction func clickTestSearch(_ sender: Any) {
+        let trackName = "thank u, next"
+        let trackArtists = "Ariana Grande"
+        
+        spotifyManager.searchForCleanVersion(trackName: trackName, trackArtists: trackArtists)
     }
 }
 

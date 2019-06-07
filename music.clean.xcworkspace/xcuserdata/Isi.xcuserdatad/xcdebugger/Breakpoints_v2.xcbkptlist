@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/SpotifyKit/Sources/SpotifyKit.swift"
-            timestampString = "581562110.252201"
+            timestampString = "581564415.969687"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1270"
-            endingLineNumber = "1270"
+            startingLineNumber = "1267"
+            endingLineNumber = "1267"
             landmarkName = "searchForCleanVersion(trackName:trackArtists:)"
             landmarkType = "7">
          </BreakpointContent>
