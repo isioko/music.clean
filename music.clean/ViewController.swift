@@ -29,8 +29,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clickTestSearch(_ sender: Any) {
-        let trackName = "thank u, next"
-        let trackArtists = "Ariana Grande"
+        let trackName = "Always On Time"
+        let trackArtists = "Ja Rule, Ashanti"
         
         spotifyManager.searchForCleanVersion(trackName: trackName, trackArtists: trackArtists)
     }

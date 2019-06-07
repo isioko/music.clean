@@ -1291,8 +1291,8 @@ public class SpotifyManager {
             let decoder = JSONDecoder()
             
             // DEV
-            let str = String(decoding: data!, as: UTF8.self)
-            print(str)
+//            let str = String(decoding: data!, as: UTF8.self)
+//            print(str)
             // DEV
             
             do {
@@ -1300,8 +1300,17 @@ public class SpotifyManager {
                 
                 for Item3 in json_response.tracks.items {
                     print(Item3.name, Item3.explicit)
-                    for Artist3 in Item3.artists {
-                        print(Artist3.name)
+                    if Item3.name == trackName && !Item3.explicit {
+                        var testArtistsString = ""
+                        for Artist3 in Item3.artists {
+                            testArtistsString += Artist3.name + " "
+                        }
+                        testArtistsString = testArtistsString.replacingOccurrences(of: "\\s+$", with: "", options: .regularExpression)
+                        
+                        if testArtistsString == trackArtists.replacingOccurrences(of: ", ", with: " ") {
+                            print("FOUND TRACK!")
+                            break
+                        }
                     }
                 }
             } catch {
